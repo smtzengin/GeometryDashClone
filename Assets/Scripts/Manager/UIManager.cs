@@ -12,6 +12,8 @@ public class UIManager : MonoBehaviour
     [Header("Level Progression Bar & attempt count")]
     public TextMeshPro attemptCountText;
     public Slider LevelSlider;
+    public MainMenu mainMenu;
+    public GameObject levelComplete;
 
     [Header("Buttons")]
     public GameObject pausePanel;
@@ -21,6 +23,7 @@ public class UIManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        mainMenu = GetComponent<MainMenu>();
     }
 
     private void Start()
@@ -31,6 +34,8 @@ public class UIManager : MonoBehaviour
     public void BackToMainMenu()
     {
         SceneManager.LoadScene(0);
+        mainMenu.bestProgression.text ="Best Progression: " + PlayerPrefs.GetFloat("bestProgression").ToString();
+        Time.timeScale = 1f;
     }
 
     public void OpenPausePanel()

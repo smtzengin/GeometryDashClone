@@ -14,12 +14,21 @@ public class MainMenu : MonoBehaviour
 
     private void Awake()
     {
-        bestProgression.text = "Best Progression: " + PlayerPrefs.GetFloat("bestProgression").ToString();
+        if(PlayerPrefs.GetFloat("bestProgression") == 0)
+        {
+            bestProgression.text = "Best Progression: 0" ;
+        }
+        else
+        {
+            bestProgression.text = "Best Progression: " + PlayerPrefs.GetFloat("bestProgression").ToString();
+        }
+
     }
 
     public void Play()
     {
         SceneManager.LoadScene(1);
+        Time.timeScale = 1f;
     }
 
     public void CloseAllSounds()

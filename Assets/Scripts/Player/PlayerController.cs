@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,15 +15,12 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private bool canJump = true;
 
     [Header("Player Fly Variables")]
-    [SerializeField] private float maxFlySpeed = 10f;
     [SerializeField] private float flyForce = 15f;
     [SerializeField] private bool isFlying, isPlayerInShip = false;
 
 
     [Header("Chapter Points")]
     [SerializeField] private GameObject chapter2Point;
-
-
 
 
 
@@ -90,6 +88,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
+            moveHorizontal = 8f;
             AudioManager.Instance.deathAudio.Play();
             AudioManager.Instance.mainLevelAudio.Stop();          
             
@@ -115,10 +114,18 @@ public class PlayerController : MonoBehaviour
             StartCoroutine(WaitForSecond(2f));
             GameManager.Instance.ChangePlayerSprite();
             StartCoroutine(WaitForSecond(2f));
+
             transform.position = chapter2Point.transform.position;
             isPlayerInShip = true;
             canJump = false;
             transform.rotation = Quaternion.EulerRotation(Vector3.zero);
+        }
+
+        if (collision.gameObject.CompareTag("FinishLine"))
+        {
+            UIManager.instance.levelComplete.SetActive(true);
+            StartCoroutine(WaitForSecond(3f));
+            SceneManager.LoadScene(1);
         }
     }
 
@@ -132,7 +139,7 @@ public class PlayerController : MonoBehaviour
 
     private void Fly()
     {
-        moveHorizontal = 6f;
+        moveHorizontal = 8f;
 
         rb.AddForce(Vector2.up * flyForce);
     }

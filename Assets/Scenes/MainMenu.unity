@@ -104,7 +104,7 @@ NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
-    serializedVersion: 3
+    serializedVersion: 2
     agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
@@ -117,7 +117,7 @@ NavMeshSettings:
     cellSize: 0.16666667
     manualTileSize: 0
     tileSize: 256
-    buildHeightMesh: 0
+    accuratePlacement: 0
     maxJobWorkers: 0
     preserveTilesOutsideBounds: 0
     debug:
@@ -196,7 +196,6 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 8077813929133749331, guid: eda87ca14aa003948aa2d731e389241e, type: 3}
@@ -248,21 +247,7 @@ PrefabInstance:
       value: '[AudioManager]'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eda87ca14aa003948aa2d731e389241e, type: 3}
---- !u!114 &165819953 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3670026990944359134, guid: eda87ca14aa003948aa2d731e389241e, type: 3}
-  m_PrefabInstance: {fileID: 165819952}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ab83a8cff559f14cb7a8a91394cdab8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &444431390
 GameObject:
   m_ObjectHideFlags: 0
@@ -300,7 +285,7 @@ RectTransform:
   - {fileID: 1692650265}
   - {fileID: 1288531014}
   m_Father: {fileID: 1467023047}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -377,7 +362,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444431391}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -509,11 +494,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444431391}
-  m_RootOrder: -1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -260.02283, y: 134.41003}
+  m_AnchoredPosition: {x: -260.02283, y: 106}
   m_SizeDelta: {x: 81.25, y: 65.625}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1053794135
@@ -585,7 +570,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444431391}
-  m_RootOrder: -1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
@@ -721,7 +706,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444431391}
-  m_RootOrder: -1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -772,8 +757,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 165819953}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1467023048}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: OpenAllSounds
         m_Mode: 1
         m_Arguments:
@@ -804,7 +789,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1649311929, guid: 8fc0c2b76fc31d04b8737296bcf880d2, type: 3}
+  m_Sprite: {fileID: 117586348, guid: 8fc0c2b76fc31d04b8737296bcf880d2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -899,9 +884,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
-  m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -939,7 +922,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playBtn: {fileID: 916525033}
-  bestProgression: {fileID: 1288531015}
+  muteBtn: {fileID: 1470476696}
+  openMutebtn: {fileID: 1466424216}
+  bestProgression: {fileID: 1692650266}
 --- !u!1 &1470476696
 GameObject:
   m_ObjectHideFlags: 0
@@ -972,7 +957,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444431391}
-  m_RootOrder: -1
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1023,8 +1008,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 165819953}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1467023048}
+        m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: CloseAllSounds
         m_Mode: 1
         m_Arguments:
@@ -1104,11 +1089,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 444431391}
-  m_RootOrder: -1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 74, y: 133}
+  m_AnchoredPosition: {x: 74, y: 104.590004}
   m_SizeDelta: {x: 560.0459, y: 62.813}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692650266
@@ -1248,17 +1233,9 @@ Camera:
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
-  m_Iso: 200
-  m_ShutterSpeed: 0.005
-  m_Aperture: 16
-  m_FocusDistance: 10
-  m_FocalLength: 50
-  m_BladeCount: 5
-  m_Curvature: {x: 2, y: 11}
-  m_BarrelClipping: 0.25
-  m_Anamorphism: 0
   m_SensorSize: {x: 36, y: 24}
   m_LensShift: {x: 0, y: 0}
+  m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
