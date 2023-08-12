@@ -8,13 +8,16 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
+    [Header("Player Variables")]
     [SerializeField] private Transform _startPoint;
     [SerializeField] private Transform _endPoint;
     [SerializeField] private PlayerController playerController;
     [SerializeField] private Sprite currentSprite;
     [SerializeField] private Sprite targetSprite;
 
+    [Header("Level percentage")]
     [SerializeField] private float totalDistance;
+    [SerializeField] private float percentage;
 
     public int attemptCount;
       
@@ -23,7 +26,7 @@ public class GameManager : MonoBehaviour
     {
         Instance = this;
         playerController = FindObjectOfType<PlayerController>();
-        currentSprite = playerController.GetComponent<Sprite>();
+        currentSprite = playerController.gameObject.GetComponent<SpriteRenderer>().sprite;
     }
 
     private void Start()
@@ -36,10 +39,12 @@ public class GameManager : MonoBehaviour
     {
         float characterDistance = Vector2.Distance(_startPoint.position, playerController.transform.position);
 
-        // Aradaki mesafeyi yüzde olarak hesapla
-        float percentage = (characterDistance / totalDistance) * 100f;
+        percentage = (characterDistance / totalDistance) * 100f;
 
-        //Debug.Log("Distance traveled: " + percentage.ToString("F2") + "%");
+        UIManager.instance.LevelSlider.value = percentage / 100f;
+
+        if(PlayerPrefs.GetFloat("bestProgression") < percentage)
+            PlayerPrefs.SetFloat("bestProgression", percentage);
     }
 
 
@@ -51,7 +56,7 @@ public class GameManager : MonoBehaviour
             currentSprite = targetSprite;
             targetSprite = tempSprite;
 
-            playerController.GetComponent<SpriteRenderer>().sprite = currentSprite;
+            playerController.gameObject.GetComponent<SpriteRenderer>().sprite = currentSprite;
         }
     }
 
@@ -65,5 +70,6 @@ public class GameManager : MonoBehaviour
     {
         return _startPoint;
     }
+
 
 }

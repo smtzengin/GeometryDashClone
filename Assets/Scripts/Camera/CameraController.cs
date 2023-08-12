@@ -28,6 +28,8 @@ public class CameraController : MonoBehaviour
 
         // Karakterin pozisyonunu takip et
         Vector3 newPosition = new Vector3(targetX + offset.x, mainCamera.transform.position.y, mainCamera.transform.position.z);
+        
+
         mainCamera.transform.position = newPosition;
 
 

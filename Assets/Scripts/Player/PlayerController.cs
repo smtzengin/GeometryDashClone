@@ -4,26 +4,34 @@ using UnityEngine;
 using DG.Tweening;
 
 public class PlayerController : MonoBehaviour
-{ 
-
+{
+    [Header("Player Jump Variables")]
+    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private float speed = 1f;
     [SerializeField] private float moveHorizontal = 3f;
     [SerializeField] private float jumpForce = 5f;
-    [SerializeField] private float flyForce = 5f;
-    [SerializeField] private int maxAirJumps = 3;
-
-    [SerializeField] private Rigidbody2D rb;
     [SerializeField] private bool isGrounded = false;
-    [SerializeField] private bool isFlying;
     [SerializeField] private bool canJump = true;
+
+    [Header("Player Fly Variables")]
+    [SerializeField] private float maxFlySpeed = 10f;
+    [SerializeField] private float flyForce = 15f;
+    [SerializeField] private bool isFlying, isPlayerInShip = false;
+
+
+    [Header("Chapter Points")]
     [SerializeField] private GameObject chapter2Point;
+
+
 
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        isFlying = false;
+
+        AudioManager.Instance.mainLevelAudio.Play();
+
     }
 
     private void Update()
@@ -31,10 +39,24 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButton(0))
         {
-            if (isGrounded )
+            if (isGrounded)
             {
                 Jump();
             }            
+        }
+
+
+        if (isPlayerInShip && !isGrounded)
+        {
+            if (Input.GetMouseButton(0))
+            {
+                rb.gravityScale = 2f;
+                Fly();
+            }
+            else if (Input.GetMouseButtonUp(0))
+            {
+                rb.gravityScale = 4f;
+            }
         }
 
     }
@@ -43,9 +65,9 @@ public class PlayerController : MonoBehaviour
     {
         Vector2 movement = new Vector2(moveHorizontal, rb.velocity.y);
         rb.velocity = movement * speed;
-        
-    }
 
+    }
+        
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Ground"))
@@ -68,25 +90,35 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Trap"))
         {
+            AudioManager.Instance.deathAudio.Play();
+            AudioManager.Instance.mainLevelAudio.Stop();          
+            
             StartCoroutine(WaitForSecond(2f));
             GameManager.Instance.IncreaseAttemptCount();
+            StartCoroutine(WaitForSecond(2f));
             this.transform.position = GameManager.Instance.StartPoint().position;
+            AudioManager.Instance.mainLevelAudio.Play();
             UIManager.instance.attemptCountText.text = "Attempt " + PlayerPrefs.GetInt("attemptCount").ToString();
+            if (isPlayerInShip)
+            {
+                GameManager.Instance.ChangePlayerSprite();
+            }
+            isPlayerInShip = false;
+            rb.gravityScale = 5f;
+            
         }
+
 
         if (collision.gameObject.CompareTag("NewLevel"))
         {
+            moveHorizontal = 0f;
             StartCoroutine(WaitForSecond(2f));
             GameManager.Instance.ChangePlayerSprite();
-
-            isFlying = true;
+            StartCoroutine(WaitForSecond(2f));
             transform.position = chapter2Point.transform.position;
-
-            if(isFlying && Input.GetMouseButtonDown(0))
-            {
-                Fly();
-            }
-
+            isPlayerInShip = true;
+            canJump = false;
+            transform.rotation = Quaternion.EulerRotation(Vector3.zero);
         }
     }
 
@@ -95,15 +127,14 @@ public class PlayerController : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         transform.DORotate(new Vector3(0f, 0f, transform.rotation.eulerAngles.z - 90f), .1f)
             .OnComplete(() => canJump = true);
-
         canJump = false;
-
     }
 
     private void Fly()
     {
-        isFlying = true;
-        rb.velocity = new Vector2(rb.velocity.x, flyForce);
+        moveHorizontal = 6f;
+
+        rb.AddForce(Vector2.up * flyForce);
     }
 
     private IEnumerator WaitForSecond(float duration)
